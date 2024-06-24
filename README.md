@@ -1,3 +1,17 @@
+# Changes compared to original
+
+1. Changed API endpoint to use Openrouter instead
+2. Added server.py to use MoA via an API
+3. Added [GUI](https://github.com/timothelaborie/MoA-Openrouter/blob/main/gui.ipynb)
+
+Original project description:
+
+
+
+
+
+
+
 # Mixture-of-Agents Enhances Large Language Model Capabilities
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-green.svg)](LICENSE)
