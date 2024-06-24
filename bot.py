@@ -24,19 +24,18 @@ welcome_message = """
 Mixture of Agents (MoA) is a novel approach that leverages the collective strengths of multiple LLMs to enhance performance, achieving state-of-the-art results. By employing a layered architecture where each layer comprises several LLM agents, MoA significantly outperforms GPT-4 Omni’s 57.5% on AlpacaEval 2.0 with a score of 65.1%, using only open-source models!
 
 This demo uses the following LLMs as reference models, then passes the results to the aggregate model for the final response:
-- Qwen/Qwen2-72B-Instruct
-- Qwen/Qwen1.5-72B-Chat
-- mistralai/Mixtral-8x22B-Instruct-v0.1
-- databricks/dbrx-instruct
 
 """
 
 default_reference_models = [
-    "Qwen/Qwen2-72B-Instruct",
-    "Qwen/Qwen1.5-72B-Chat",
-    "mistralai/Mixtral-8x22B-Instruct-v0.1",
-    "databricks/dbrx-instruct",
+    "openai/gpt-4o",
+    "qwen/qwen-2-72b-instruct",
+    "anthropic/claude-3.5-sonnet",
+    "google/gemini-pro-1.5",
+    "meta-llama/llama-3-70b-instruct",
 ]
+
+welcome_message+= "\n".join([f"- {model}" for model in default_reference_models])
 
 
 def process_fn(
@@ -118,21 +117,21 @@ def main(
 
     model = Prompt.ask(
         "\n1. What main model do you want to use?",
-        default="Qwen/Qwen2-72B-Instruct",
+        default=default_reference_models[0],
     )
     console.print(f"Selected {model}.", style="yellow italic")
     temperature = float(
         Prompt.ask(
-            "2. What temperature do you want to use? [cyan bold](0.7) [/cyan bold]",
-            default=0.7,
+            "2. What temperature do you want to use? [cyan bold](0) [/cyan bold]",
+            default=0,
             show_default=True,
         )
     )
     console.print(f"Selected {temperature}.", style="yellow italic")
     max_tokens = int(
         Prompt.ask(
-            "3. What max tokens do you want to use? [cyan bold](512) [/cyan bold]",
-            default=512,
+            "3. What max tokens do you want to use? [cyan bold](1024) [/cyan bold]",
+            default=1024,
             show_default=True,
         )
     )

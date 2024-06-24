@@ -25,7 +25,8 @@ def generate_together(
 
         try:
 
-            endpoint = "https://api.together.xyz/v1/chat/completions"
+            # endpoint = "https://api.together.xyz/v1/chat/completions"
+            endpoint = "https://openrouter.ai/api/v1/chat/completions"
 
             if DEBUG:
                 logger.debug(
@@ -41,7 +42,7 @@ def generate_together(
                     "messages": messages,
                 },
                 headers={
-                    "Authorization": f"Bearer {os.environ.get('TOGETHER_API_KEY')}",
+                    "Authorization": f"Bearer {os.environ.get('OPENROUTER_API_KEY')}",
                 },
             )
             if "error" in res.json():
@@ -80,11 +81,11 @@ def generate_together_stream(
     max_tokens=2048,
     temperature=0.7,
 ):
-    endpoint = "https://api.together.xyz/v1"
+    endpoint = "https://openrouter.ai/api/v1"
     client = openai.OpenAI(
-        api_key=os.environ.get("TOGETHER_API_KEY"), base_url=endpoint
+        api_key=os.environ.get("OPENROUTER_API_KEY"), base_url=endpoint
     )
-    endpoint = "https://api.together.xyz/v1/chat/completions"
+    endpoint = "https://openrouter.ai/api/v1/chat/completions"
     response = client.chat.completions.create(
         model=model,
         messages=messages,
@@ -102,6 +103,8 @@ def generate_openai(
     max_tokens=2048,
     temperature=0.7,
 ):
+    print("no")
+    return
 
     client = openai.OpenAI(
         api_key=os.environ.get("OPENAI_API_KEY"),
